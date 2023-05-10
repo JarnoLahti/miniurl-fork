@@ -24,3 +24,10 @@ func ExampleHash() {
 	// output:
 	// 3474851a3410906697ec77337df7aae4
 }
+
+func BenchmarkHash(b *testing.B) {
+	const input = "test_string"
+	for n := 0; n < b.N; n++ {
+		miniurl.Hash(input)
+	}
+}
