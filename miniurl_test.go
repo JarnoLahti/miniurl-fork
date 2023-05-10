@@ -17,6 +17,17 @@ func TestHashLength(t *testing.T) {
 	assert.Len(t, output, expectedLength)
 }
 
+func FuzzHash(f *testing.F) {
+	f.Add("https://example.com")
+	f.Fuzz(func(t *testing.T, input string) {
+		output1 := miniurl.Hash(input)
+		output2 := miniurl.Hash(input)
+		assert.Equal(t, output1, output2)
+		assert.Len(t, output1, 32)
+		assert.Len(t, output2, 32)
+	})
+}
+
 func ExampleHash() {
 	const input = "test_string"
 	output := miniurl.Hash(input)
